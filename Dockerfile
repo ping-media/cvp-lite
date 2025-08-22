@@ -6,7 +6,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONPATH=/app
 ENV HOST=0.0.0.0
-ENV PORT=8000
+ENV PORT=8001
 
 # Set work directory
 WORKDIR /app
@@ -14,15 +14,13 @@ WORKDIR /app
 # Install system dependencies
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        gcc \
-        g++ \
-        build-essential \
         curl \
-        git \
         && rm -rf /var/lib/apt/lists/*
 
-# Clone the repository from GitHub
-RUN git clone https://github.com/ping-media/ai-recipe-generator.git .
+# Copy application files
+COPY requirements.txt .
+COPY main.py .
+COPY app/ ./app/
 
 # Install Python dependencies
 RUN pip install --no-cache-dir --upgrade pip \
@@ -34,11 +32,11 @@ RUN useradd --create-home --shell /bin/bash app \
 USER app
 
 # Expose port
-EXPOSE 8000
+EXPOSE 8001
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
+    CMD curl -f http://localhost:8001/health || exit 1
 
 # Run the application
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"] 
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001"] 
