@@ -3,7 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import logging
 from app.config import settings
-from app.routes import users, cvp_lite
+# from app.routes import users, cvp_lite  # Removed user management
+from app.routes import cvp_lite
 
 # Configure logging
 logging.basicConfig(
@@ -31,7 +32,7 @@ app.add_middleware(
 )
 
 # Include routers
-app.include_router(users.router)
+# app.include_router(users.router)  # Removed user management
 app.include_router(cvp_lite.router)
 
 @app.get("/")
@@ -49,9 +50,7 @@ async def health_check():
     return {
         "status": "healthy",
         "services": {
-            "mongodb": "connected"
-            # "pinecone": "connected",  # Removed AI features
-            # "openai": "configured"  # Removed AI features
+            "storage": "in-memory"
         }
     }
 
@@ -68,9 +67,7 @@ async def startup_event():
 async def shutdown_event():
     """Cleanup on shutdown"""
     try:
-        # Close MongoDB connection
-        from app.database import mongodb
-        mongodb.close()
+        # No database connection to close
         logger.info("Application shutdown completed")
     except Exception as e:
         logger.error(f"Error during shutdown: {e}")

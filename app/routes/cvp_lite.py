@@ -20,7 +20,7 @@ from ..models import (
     QuestionsMeta,
     QuestionsLinks,
 )
-from ..database import mongodb
+# from ..database import storage  # Removed - no database needed
 # from ..ai_service import ai_service  # Removed AI features
 
 logger = logging.getLogger(__name__)
@@ -44,6 +44,7 @@ router = APIRouter(prefix="/cvp_lite", tags=["cvp_lite"])
 async def get_questions(request: QuestionsRequest):
     """Get static questions in the specified format for assessment."""
     try:
+        # No user validation needed - static endpoint
         # Static questions data
         questions = [
             Question(

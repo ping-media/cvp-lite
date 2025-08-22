@@ -1,7 +1,6 @@
 fastapi
 uvicorn[standard]
-pymongo
-# python-dotenv  # Removed - no longer using .env files
+# pymongo  # Removed - using in-memory storage
 pydantic
 python-multipart
 PyPDF2

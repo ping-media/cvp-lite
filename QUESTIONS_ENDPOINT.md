@@ -14,7 +14,6 @@ The questions endpoint provides static assessment questions in a standardized fo
 
 ```json
 {
-  "student_id": "string",
   "page": 1,
   "page_size": 10,
   "category_id": "string (optional)"
@@ -25,7 +24,6 @@ The questions endpoint provides static assessment questions in a standardized fo
 
 | Parameter     | Type    | Required | Description                                         |
 | ------------- | ------- | -------- | --------------------------------------------------- |
-| `student_id`  | string  | Yes      | Student identifier (any value accepted)             |
 | `page`        | integer | No       | Page number for pagination (default: 1)             |
 | `page_size`   | integer | No       | Number of questions per page (default: 10)          |
 | `category_id` | string  | No       | Filter questions by category (e.g., "riasec", "mi") |
@@ -143,7 +141,6 @@ import requests
 
 url = "http://localhost:8001/cvp_lite/questions"
 data = {
-    "student_id": "student123",
     "page": 1,
     "page_size": 5
 }

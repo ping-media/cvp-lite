@@ -1,11 +1,6 @@
 import os
 
 class Settings:
-    # MongoDB Configuration
-    MONGODB_URI: str = os.getenv("MONGODB_URI", "")
-    MONGODB_DATABASE: str = "ypd_db"
-    MONGODB_COLLECTION: str = "users"
-    
     # FastAPI Configuration
     HOST: str = os.getenv("HOST", "0.0.0.0")
     PORT: int = int(os.getenv("PORT", "8001"))
