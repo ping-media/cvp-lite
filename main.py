@@ -49,9 +49,9 @@ async def health_check():
     return {
         "status": "healthy",
         "services": {
-            "mongodb": "connected",
-            "pinecone": "connected",
-            "openai": "configured"
+            "mongodb": "connected"
+            # "pinecone": "connected",  # Removed AI features
+            # "openai": "configured"  # Removed AI features
         }
     }
 

@@ -51,10 +51,10 @@ async def setup_profile(payload: ProfileSetupRequest):
             "hobbies_and_passions": payload.hobbies_and_passions,
             "dream_job": (payload.dream_job or "").strip(),
             "future_self_info": (payload.future_self_info or "").strip(),
-            # Journey tracking
+            # Journey tracking - Removed step tracking
             "cvp_lite": {
-                "current_step": 0,
-                "steps_completed": [],
+                # "current_step": 0,  # Removed step tracking
+                # "steps_completed": [],  # Removed step tracking
             },
         }
 
@@ -83,12 +83,10 @@ async def setup_profile(payload: ProfileSetupRequest):
             f"- Dreams of: {dream_job_text}\n"
             f"- Future Vision: {future_self_text}\n\n"
             f"**Your YPD ID: {student_id}**\n"
-            "*This information will help me create the most relevant and personal career guidance for you\n"
-            "throughout our journey.*\n\n"
-            "## Ready for Step 1?\n"
-            "We're about to dive into discovering your natural interests and hidden strengths!\n\n"
-            "This next step takes about 10 minutes and is going to reveal some fascinating insights about what\n"
-            "makes you tick.\n"
+            "*This information will help create the most relevant and personal career guidance for you.*\n\n"
+            "## Ready to Begin?\n"
+            "You're all set to start your career guidance journey!\n\n"
+            "Your profile information will be used to provide personalized insights and recommendations.\n"
         )
 
         return ProfileSetupResponse(student_id=student_id, message=response_text)
@@ -117,7 +115,7 @@ async def get_all_users():
                 hobbies_and_passions=doc.get("hobbies_and_passions", []) or [],
                 dream_job=doc.get("dream_job"),
                 future_self_info=doc.get("future_self_info"),
-                current_step=cvp_meta.get("current_step"),
+                # current_step=cvp_meta.get("current_step"),  # Removed step tracking
                 created_at=doc.get("created_at"),
                 updated_at=doc.get("updated_at"),
             ))

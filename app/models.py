@@ -41,18 +41,18 @@ class UsersListResponse(BaseModel):
     users: List[UserProfileResponse]
     total_count: int
 
-class ConversationHistoryResponse(BaseModel):
-    conversation_id: str
-    user_id: str
-    recipe_data: Dict[str, Any]
-    timestamp: datetime
-    type: str
+# class ConversationHistoryResponse(BaseModel):
+#     conversation_id: str
+#     user_id: str
+#     recipe_data: Dict[str, Any]
+#     timestamp: datetime
+#     type: str
 
-class ConversationSummaryResponse(BaseModel):
-    user_id: str
-    total_conversations: int
-    recent_conversations: List[Dict[str, Any]]
-    popular_recipe_types: List[Dict[str, Any]] 
+# class ConversationSummaryResponse(BaseModel):
+#     user_id: str
+#     total_conversations: int
+#     recent_conversations: List[Dict[str, Any]]
+#     popular_recipe_types: List[Dict[str, Any]] 
 
 # Step 0: Profile setup models
 class ProfileSetupRequest(BaseModel):
@@ -86,7 +86,7 @@ class CVPUserSummary(BaseModel):
     hobbies_and_passions: List[str] = Field(default_factory=list)
     dream_job: Optional[str] = None
     future_self_info: Optional[str] = None
-    current_step: Optional[int] = None
+    # current_step: Optional[int] = None  # Removed step tracking
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
@@ -94,44 +94,44 @@ class CVPUsersListResponse(BaseModel):
     users: List[CVPUserSummary]
     total_count: int
 
-# Step 1: Interest & Strengths Discovery models
-class Step1QuestionOption(BaseModel):
-    id: str
-    text: str
+# Step 1: Interest & Strengths Discovery models (Removed AI features)
+# class Step1QuestionOption(BaseModel):
+#     id: str
+#     text: str
 
-class Step1Question(BaseModel):
-    id: str
-    prompt: str
-    options: List[Step1QuestionOption]
-    scenario: Optional[str] = None
-    tags: Optional[List[str]] = None  # RIASEC / MI hints (optional)
+# class Step1Question(BaseModel):
+#     id: str
+#     prompt: str
+#     options: List[Step1QuestionOption]
+#     scenario: Optional[str] = None
+#     tags: Optional[List[str]] = None  # RIASEC / MI hints (optional)
 
-class Step1QuestionsRequest(BaseModel):
-    student_id: str
+# class Step1QuestionsRequest(BaseModel):
+#     student_id: str
 
-class Step1QuestionsResponse(BaseModel):
-    student_id: str
-    questions: List[Step1Question]
-    message: str
+# class Step1QuestionsResponse(BaseModel):
+#     student_id: str
+#     questions: List[Step1Question]
+#     message: str
 
-class Step1Answer(BaseModel):
-    question_id: str
-    option_id: str
+# class Step1Answer(BaseModel):
+#     question_id: str
+#     option_id: str
 
-class Step1SubmitRequest(BaseModel):
-    student_id: str
-    answers: List[Step1Answer]
+# class Step1SubmitRequest(BaseModel):
+#     student_id: str
+#     answers: List[Step1Answer]
 
-class Step1Insight(BaseModel):
-    summary: str
-    riasec_scores: Optional[Dict[str, float]] = None
-    mi_scores: Optional[Dict[str, float]] = None
-    top_themes: Optional[List[str]] = None
+# class Step1Insight(BaseModel):
+#     summary: str
+#     riasec_scores: Optional[Dict[str, float]] = None
+#     mi_scores: Optional[Dict[str, float]] = None
+#     top_themes: Optional[List[str]] = None
 
-class Step1SubmitResponse(BaseModel):
-    student_id: str
-    insights: Step1Insight
-    message: str
+# class Step1SubmitResponse(BaseModel):
+#     student_id: str
+#     insights: Step1Insight
+#     message: str
 
 # Generic small responses
 class DeleteUserResponse(BaseModel):

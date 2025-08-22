@@ -322,12 +322,12 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variable files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
+# dotenv environment variable files - No longer used
+# .env
+# .env.development.local
+# .env.test.local
+# .env.production.local
+# .env.local
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -400,9 +400,9 @@ test_*.py
 # Local configuration files
 config.local.py
 settings.local.py
-.env.local
-.env.production
-.env.staging
+# .env.local  # No longer used
+# .env.production  # No longer used
+# .env.staging  # No longer used
 
 # API documentation
 api_docs/

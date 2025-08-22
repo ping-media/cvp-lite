@@ -114,140 +114,60 @@ class MongoDB:
             logger.error(f"Error deleting user {user_id}: {e}")
             return False
     
-    def store_conversation_history(self, user_id: str, recipe_data: Dict[str, Any], conversation_id: str = None) -> str:
-        """
-        Store recipe conversation history in MongoDB
-        
-        Args:
-            user_id (str): User's student ID
-            recipe_data (Dict[str, Any]): Generated recipe data
-            conversation_id (str, optional): Existing conversation ID for grouping
-            
-        Returns:
-            str: Conversation ID (new or existing)
-        """
-        try:
-            # Generate conversation ID if not provided
-            if not conversation_id:
-                conversation_id = f"conv_{user_id}_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}"
-            
-            # Prepare conversation entry
-            conversation_entry = {
-                "conversation_id": conversation_id,
-                "user_id": user_id,
-                "recipe_data": recipe_data,
-                "timestamp": datetime.utcnow(),
-                "type": "recipe_generation"
-            }
-            
-            # Store in conversations collection
-            conversations_collection = self.db["conversations"]
-            result = conversations_collection.insert_one(conversation_entry)
-            
-            logger.info(f"Stored conversation history for user {user_id}, conversation_id: {conversation_id}")
-            return conversation_id
-            
-        except Exception as e:
-            logger.error(f"Error storing conversation history: {e}")
-            return conversation_id if conversation_id else ""
+    # def store_conversation_history(self, user_id: str, recipe_data: Dict[str, Any], conversation_id: str = None) -> str:
+    #     """
+    #     Store recipe conversation history in MongoDB
+    #     
+    #     Args:
+    #         user_id (str): User's student ID
+    #         recipe_data (Dict[str, Any]): Generated recipe data
+    #         conversation_id (str, optional): Existing conversation ID for grouping
+    #         
+    #     Returns:
+    #         str: Conversation ID (new or existing)
+    #     """
+    #     # Removed AI features - conversation history was for recipe generation
+    #     pass
     
-    def get_conversation_history(self, user_id: str, limit: int = 10) -> List[Dict[str, Any]]:
-        """
-        Retrieve conversation history for a user
-        
-        Args:
-            user_id (str): User's student ID
-            limit (int): Maximum number of conversations to retrieve
-            
-        Returns:
-            List[Dict[str, Any]]: List of conversation entries
-        """
-        try:
-            conversations_collection = self.db["conversations"]
-            conversations = list(conversations_collection.find(
-                {"user_id": user_id},
-                {"_id": 0}  # Exclude MongoDB _id field
-            ).sort("timestamp", -1).limit(limit))
-            
-            logger.info(f"Retrieved {len(conversations)} conversations for user {user_id}")
-            return conversations
-            
-        except Exception as e:
-            logger.error(f"Error retrieving conversation history: {e}")
-            return []
+    # def get_conversation_history(self, user_id: str, limit: int = 10) -> List[Dict[str, Any]]:
+    #     """
+    #     Retrieve conversation history for a user
+    #     
+    #     Args:
+    #         user_id (str): User's student ID
+    #         limit (int): Maximum number of conversations to retrieve
+    #         
+    #     Returns:
+    #         List[Dict[str, Any]]: List of conversation entries
+    #     """
+    #     # Removed AI features - conversation history was for recipe generation
+    #     pass
     
-    def get_conversation_by_id(self, conversation_id: str) -> Optional[Dict[str, Any]]:
-        """
-        Retrieve a specific conversation by ID
-        
-        Args:
-            conversation_id (str): Conversation ID
-            
-        Returns:
-            Optional[Dict[str, Any]]: Conversation data or None
-        """
-        try:
-            conversations_collection = self.db["conversations"]
-            conversation = conversations_collection.find_one(
-                {"conversation_id": conversation_id},
-                {"_id": 0}  # Exclude MongoDB _id field
-            )
-            
-            return conversation
-            
-        except Exception as e:
-            logger.error(f"Error retrieving conversation {conversation_id}: {e}")
-            return None
+    # def get_conversation_by_id(self, conversation_id: str) -> Optional[Dict[str, Any]]:
+    #     """
+    #     Retrieve a specific conversation by ID
+    #         
+    #     Args:
+    #         conversation_id (str): Conversation ID
+    #             
+    #     Returns:
+    #         Optional[Dict[str, Any]]: Conversation data or None
+    #     """
+    #     # Removed AI features - conversation history was for recipe generation
+    #     pass
     
-    def get_user_conversations_summary(self, user_id: str) -> Dict[str, Any]:
-        """
-        Get summary of user's conversation history
-        
-        Args:
-            user_id (str): User's student ID
-            
-        Returns:
-            Dict[str, Any]: Summary including total conversations, recent recipes, etc.
-        """
-        try:
-            conversations_collection = self.db["conversations"]
-            
-            # Get total count
-            total_conversations = conversations_collection.count_documents({"user_id": user_id})
-            
-            # Get recent conversations
-            recent_conversations = list(conversations_collection.find(
-                {"user_id": user_id},
-                {"recipe_data.recipe_name": 1, "timestamp": 1, "conversation_id": 1, "_id": 0}
-            ).sort("timestamp", -1).limit(5))
-            
-            # Get unique recipe types
-            pipeline = [
-                {"$match": {"user_id": user_id}},
-                {"$group": {"_id": "$recipe_data.recipe_name", "count": {"$sum": 1}}},
-                {"$sort": {"count": -1}},
-                {"$limit": 10}
-            ]
-            
-            recipe_types = list(conversations_collection.aggregate(pipeline))
-            
-            summary = {
-                "user_id": user_id,
-                "total_conversations": total_conversations,
-                "recent_conversations": recent_conversations,
-                "popular_recipe_types": recipe_types
-            }
-            
-            return summary
-            
-        except Exception as e:
-            logger.error(f"Error getting conversation summary for user {user_id}: {e}")
-            return {
-                "user_id": user_id,
-                "total_conversations": 0,
-                "recent_conversations": [],
-                "popular_recipe_types": []
-            }
+    # def get_user_conversations_summary(self, user_id: str) -> Dict[str, Any]:
+    #     """
+    #     Get summary of user's conversation history
+    #         
+    #     Args:
+    #         user_id (str): User's student ID
+    #             
+    #     Returns:
+    #         List[Dict[str, Any]]: Summary including total conversations, recent recipes, etc.
+    #     """
+    #     # Removed AI features - conversation history was for recipe generation
+    #     pass
     
     def close(self):
         """Close MongoDB connection"""
