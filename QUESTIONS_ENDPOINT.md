@@ -127,7 +127,7 @@ Contains pagination links:
 ### cURL Example
 
 ```bash
-curl -X POST "http://localhost:8000/cvp_lite/questions" \
+curl -X POST "http://localhost:8001/cvp_lite/questions" \
   -H "Content-Type: application/json" \
   -d '{
     "student_id": "student123",
@@ -141,7 +141,7 @@ curl -X POST "http://localhost:8000/cvp_lite/questions" \
 ```python
 import requests
 
-url = "http://localhost:8000/cvp_lite/questions"
+url = "http://localhost:8001/cvp_lite/questions"
 data = {
     "student_id": "student123",
     "page": 1,
@@ -180,4 +180,4 @@ You can test the endpoint using the provided test script:
 python test_questions_endpoint.py
 ```
 
-Make sure the server is running on `localhost:8000` before running the test.
+Make sure the server is running on `localhost:8001` before running the test.
